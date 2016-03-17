@@ -1,6 +1,8 @@
 module Spree
   class GiftCardsController < Spree::StoreController
 
+    before_action :load_master_variant, :new
+
     def new
       @variant = Spree::Product.find_by(slug: params[:product_id]).try(:master)
       find_gift_card_variants
@@ -47,5 +49,8 @@ module Spree
       params.require(:gift_card).permit(:email, :name, :note, :variant_id)
     end
 
+    def load_master_variant
+      @master_variant = Spree::Product.find_by(slug: params[:product_id]).try(:master)
+    end
   end
 end
