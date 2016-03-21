@@ -1,8 +1,6 @@
 module Spree
   class GiftCardsController < Spree::StoreController
 
-    before_action :load_master_variant, only: :new
-
     def new
       find_gift_card_variants
       @gift_card = GiftCard.new
@@ -33,7 +31,7 @@ module Spree
         redirect_to cart_path
       rescue ActiveRecord::RecordInvalid
         find_gift_card_variants
-        render :new
+        render :action => :new
       end
     end
 
@@ -46,10 +44,6 @@ module Spree
 
     def gift_card_params
       params.require(:gift_card).permit(:email, :name, :note, :variant_id)
-    end
-
-    def load_master_variant
-      @master_variant = Spree::Product.find_by(slug: params[:product_id]).try(:master)
     end
 
   end

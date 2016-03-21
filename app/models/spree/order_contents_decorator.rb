@@ -1,8 +1,6 @@
 Spree::OrderContents.class_eval do
 
-  alias_method :orig_grab_line_item_by_variant, :grab_line_item_by_variant
-
-  def grab_line_item_by_variant(variant, raise_error = false, args = {})
+  durably_decorate :grab_line_item_by_variant, mode: 'soft', sha: '5606323a3e50e650b2ad1a51c43ba54ebc469b72' do |variant, *args|
     raise_error = args[0] || false
 
     if variant.product.is_gift_card?
