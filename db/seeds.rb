@@ -14,3 +14,12 @@ if Spree::Product.gift_cards.count == 0
   end
   product.save
 end
+
+unless Spree::PaymentMethod::GiftCard.all.exists?
+  Spree::PaymentMethod::GiftCard.create(
+    name: "Gift Card",
+    description: "Pay by Gift Card",
+    active: true,
+    display_on: :both
+  )
+end
