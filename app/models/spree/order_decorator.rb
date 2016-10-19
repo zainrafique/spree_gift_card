@@ -1,23 +1,24 @@
 Spree::Order.class_eval do
 
-  attr_accessor :gift_code
+  include Spree::Order::GiftCard
 
-  # Finalizes an in progress order after checkout is complete.
-  # Called after transition to complete state when payments will have been processed.
-  def finalize_with_gift_card!
-    finalize_without_gift_card!
-    # Record any gift card redemptions.
-    self.adjustments.where(source_type: 'Spree::GiftCard').each do |adjustment|
-      adjustment.source.debit(adjustment.amount, self)
+  private
+
+  def update_params_payment_source
+    if @updating_params[:payment_source].present?
+      source_params = @updating_params.
+                      delete(:payment_source)[@updating_params[:order][:payments_attributes].
+                                              first[:payment_method_id].to_s]
+
+      if source_params
+        @updating_params[:order][:payments_attributes].first[:source_attributes] = source_params
+      end
+    end
+
+    if @updating_params[:order] && (@updating_params[:order][:payments_attributes] ||
+                                    @updating_params[:order][:existing_card])
+      @updating_params[:order][:payments_attributes] ||= [{}]
+      @updating_params[:order][:payments_attributes].first[:amount] = total_after_gift_card
     end
   end
-  alias_method :finalize_without_gift_card!, :finalize!
-  alias_method :finalize!, :finalize_with_gift_card!
-
-  # Tells us if there is the specified gift code already associated with the order
-  # regardless of whether or not its currently eligible.
-  def gift_credit_exists?(gift_card)
-    adjustments.gift_card.reload.detect{ |credit| credit.source_id == gift_card.id }.present?
-  end
-
 end
