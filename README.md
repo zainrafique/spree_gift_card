@@ -13,7 +13,7 @@ SpreeGiftCard is an extension and one stop solution to integrate gift card funct
 
 1. Just add this line to your `Gemfile`:
   ```ruby
-  gem 'spree_gift_card',           github: 'vinsol/spree_gift_card',   branch: 'x-x-stable'
+  gem 'spree_gift_card',           github: 'vinsol/spree_gift_card',   branch: '3-0-stable'
   ```
 
 2. Execute the following commands in respective order:
