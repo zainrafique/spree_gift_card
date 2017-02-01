@@ -15,7 +15,7 @@ module Spree
 
       private
       def collection
-        super.order(created_at: :desc).page(params[:page]).per(Spree::Config[:orders_per_page])
+        super.order(created_at: :desc).page(params[:page]).per(Spree::Config[:admin_orders_per_page])
       end
 
       def find_gift_card_variants

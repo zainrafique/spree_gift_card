@@ -60,7 +60,7 @@ feature "Purchase Gift Card", js: true do
     # TODO not sure why registration page is ignored so just update order here.
     Spree::Order.last.update_column(:email, "spree@example.com")
     click_button "Checkout"
-    # fill_in "order_email", :with => "spree@example.com"
+    fill_in "order_email", :with => "spree@example.com"
     # click_button "Continue"
 
     within '#billing' do
@@ -90,6 +90,9 @@ feature "Purchase Gift Card", js: true do
     fill_in 'gift_card[note]', with: 'Test message.'
     select '$50.00', from: 'gift_card[variant_id]'
     click_button 'Add To Cart'
+    # NOTE: Failing to add page content expectation
+    # fails the Spree::GiftCard.count expectation
+    expect(page).to have_content('Gift Card')
     expect(Spree::GiftCard.count).to eql(1)
     within '#line_items' do
       expect(page).to have_content('Gift Card')
