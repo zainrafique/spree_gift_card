@@ -12,6 +12,7 @@
         <div class="panel-body">
           <div class="form-group">
             <%= label_tag :allow_gift_card_redeem do %>
+              <%= hidden_field_tag :allow_gift_card_redeem, 0 %>
               <%= check_box_tag :allow_gift_card_redeem, 1, Spree::Config.allow_gift_card_redeem %>
               <%= Spree.t(:allow_gift_card_redeem) %>
             <% end %>
