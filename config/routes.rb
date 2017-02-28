@@ -5,7 +5,7 @@ Spree::Core::Engine.routes.draw do
     end
   end
 
-  resources :orders do
+  resources :orders, only: [] do
     patch :apply_gift_card
   end
 
