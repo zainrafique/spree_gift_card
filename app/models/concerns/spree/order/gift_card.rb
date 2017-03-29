@@ -54,6 +54,10 @@ module Spree
         end
       end
 
+      def outstanding_balance_after_applied_store_credit
+        outstanding_balance - total_applied_store_credit
+      end
+
       private
 
         def create_gift_card_payment(payment_method, gift_card, amount)
@@ -68,10 +72,6 @@ module Spree
 
         def gift_card_amount(gift_card, total)
           [gift_card.amount_remaining, total].min
-        end
-
-        def outstanding_balance_after_applied_store_credit
-          outstanding_balance - total_applied_store_credit
         end
     end
   end

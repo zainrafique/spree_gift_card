@@ -49,6 +49,22 @@ describe 'Order' do
       end
     end
 
+    context '#outstanding_balance_after_applied_store_credit' do
+      let!(:order_total) { 500.00 }
+      let!(:amount_difference) { 100 }
+      let!(:user) { create(:user) }
+      let!(:store_credit_payment_method) { create(:store_credit_payment_method) }
+      let!(:store_credit) { create(:store_credit, amount: (order_total - amount_difference), user: user)}
+      let!(:order) { create(:order, total: order_total, user: user) }
+      subject { order.outstanding_balance_after_applied_store_credit }
+
+      before do
+        order.add_store_credit_payments
+      end
+
+      it { expect(subject.to_f).to eq amount_difference }
+    end
+
     context 'the available store credit is not enough to pay for the entire order' do
       let(:expected_cc_total) { 100.0 }
       let(:gift_card_total) { order_total - expected_cc_total }
