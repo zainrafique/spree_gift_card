@@ -10,8 +10,9 @@ feature "Admin GiftCard Payment", js: true do
   let!(:outstanding_balance_after_store_credit) { 10 }
 
   context 'gift card w/o order storecredit applied' do
+    let!(:credit_card_payment_method) { create(:credit_card_payment_method) }
+
     before do
-      create(:credit_card_payment_method)
       @amount = [order.total.to_f, gift_card.current_value.to_f].min
       visit spree.new_admin_order_payment_path(order)
       choose("payment_payment_method_id_#{ payment_method.id }")
@@ -33,9 +34,10 @@ feature "Admin GiftCard Payment", js: true do
   end
 
   context 'when order has store_credit payment' do
+    let!(:store_credit_payment) { create(:store_credit_payment, order: order, amount: order.total - outstanding_balance_after_store_credit) }
 
     before do
-      create(:store_credit_payment, order: order, amount: order.total - outstanding_balance_after_store_credit)
+      # create(:store_credit_payment, order: order, amount: order.total - outstanding_balance_after_store_credit)
       @amount = [order.total.to_f, gift_card.current_value.to_f].min
       visit spree.new_admin_order_payment_path(order)
       choose("payment_payment_method_id_#{ payment_method.id }")
