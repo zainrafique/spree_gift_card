@@ -1,15 +1,14 @@
 Spree::Admin::PaymentsController.class_eval do
-  create.before :build_payment
+  create.before :build_gift_card_payment
 
-  def build_payment
+  def build_gift_card_payment
     if payment_via_gift_card?
       if gift_card.present?
-        payments  = @order.payments
+        @order.payments.gift_cards.checkout.map(&:invalidate!)
         @payment = @order.payments.build
         @payment.source = gift_card
-        @payment.amount = [gift_card.amount_remaining, @order.total].min
+        @payment.amount = [gift_card.amount_remaining, @order.outstanding_balance].min
         @payment.payment_method = gift_card_payment_method
-        payments.gift_cards.checkout.map(&:invalidate!) if @payment.valid?
       end
     end
   end
