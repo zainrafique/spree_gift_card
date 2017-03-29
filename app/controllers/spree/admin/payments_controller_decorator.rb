@@ -7,7 +7,7 @@ Spree::Admin::PaymentsController.class_eval do
         @order.payments.gift_cards.checkout.map(&:invalidate!)
         @payment = @order.payments.build
         @payment.source = gift_card
-        @payment.amount = [gift_card.amount_remaining, @order.outstanding_balance].min
+        @payment.amount = [gift_card.amount_remaining, @order.send(:outstanding_balance_after_applied_store_credit)].min
         @payment.payment_method = gift_card_payment_method
       end
     end
