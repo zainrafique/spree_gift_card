@@ -1,8 +1,7 @@
 Spree::LineItem.class_eval do
+  MAXIMUM_GIFT_CARD_LIMIT = 1
 
   has_one :gift_card, dependent: :destroy
-
-  MAXIMUM_GIFT_CARD_LIMIT = 1
 
   with_options if: :is_gift_card? do
     validates :gift_card, presence: true

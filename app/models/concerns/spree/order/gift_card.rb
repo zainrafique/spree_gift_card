@@ -31,7 +31,8 @@ module Spree
         def order_total_after_store_credit_with_gift_card
           order_total_after_store_credit_without_gift_card - total_applied_gift_card
         end
-        alias_method_chain :order_total_after_store_credit, :gift_card
+        alias_method :order_total_after_store_credit_without_gift_card, :order_total_after_store_credit
+        alias_method :order_total_after_store_credit, :order_total_after_store_credit_with_gift_card
       end
 
       def add_store_credit_payments
@@ -54,6 +55,10 @@ module Spree
         end
       end
 
+      def outstanding_balance_after_applied_store_credit
+        outstanding_balance - total_applied_store_credit
+      end
+
       private
 
         def create_gift_card_payment(payment_method, gift_card, amount)
@@ -70,9 +75,6 @@ module Spree
           [gift_card.amount_remaining, total].min
         end
 
-        def outstanding_balance_after_applied_store_credit
-          outstanding_balance - total_applied_store_credit
-        end
     end
   end
 end

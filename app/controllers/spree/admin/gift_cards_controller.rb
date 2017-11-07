@@ -1,7 +1,7 @@
 module Spree
   module Admin
     class GiftCardsController < Spree::Admin::ResourceController
-      before_filter :find_gift_card_variants, except: :destroy
+      before_action :find_gift_card_variants, except: :destroy
 
       def create
         @object.assign_attributes(gift_card_params)

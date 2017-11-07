@@ -13,3 +13,5 @@ spec/dummy
 Gemfile.lock
 coverage
 .sass-cache
+.ruby-gemset
+gemfiles/*.gemfile.lock

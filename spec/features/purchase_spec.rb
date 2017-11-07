@@ -2,11 +2,11 @@ require 'spec_helper'
 
 feature "Purchase Gift Card", js: true do
 
-  let!(:country) { create(:country, :name => "United States of America",:states_required => true) }
-  let!(:state) { create(:state, :name => "Alabama", :country => country) }
+  let!(:country) { create(:country, name: "United States of America", states_required: true) }
+  let!(:state) { create(:state, name: "Alabama", country: country) }
   let!(:shipping_method) { create(:shipping_method) }
   let!(:stock_location) { create(:stock_location) }
-  let!(:mug) { create(:product, :name => "RoR Mug") }
+  let!(:mug) { create(:product, name: "RoR Mug") }
   let!(:payment_method) { create(:check_payment_method) }
   let!(:zone) { create(:zone) }
 
@@ -60,18 +60,18 @@ feature "Purchase Gift Card", js: true do
     # TODO not sure why registration page is ignored so just update order here.
     Spree::Order.last.update_column(:email, "spree@example.com")
     click_button "Checkout"
-    fill_in "order_email", :with => "spree@example.com"
+    fill_in "order_email", with: "spree@example.com"
     # click_button "Continue"
 
     within '#billing' do
-      fill_in "First Name", :with => "John"
-      fill_in "Last Name", :with => "Smith"
-      fill_in "order_bill_address_attributes_address1", :with => "1 John Street"
-      fill_in "City", :with => "City of John"
-      fill_in "Zip", :with => "01337"
-      select "United States of America", :from => "Country"
-      select "Alabama", :from => "order[bill_address_attributes][state_id]"
-      fill_in "Phone", :with => "555-555-5555"
+      fill_in "First Name", with: "John"
+      fill_in "Last Name", with: "Smith"
+      fill_in "order_bill_address_attributes_address1", with: "1 John Street"
+      fill_in "City", with: "City of John"
+      fill_in "Zip", with: "01337"
+      select "United States of America", from: "Country"
+      select "Alabama", from: "order[bill_address_attributes][state_id]"
+      fill_in "Phone", with: "555-555-5555"
     end
     check "Use Billing Address"
 

@@ -6,7 +6,7 @@ module Spree
 
     def redeem
       if @gift_card.safely_redeem(spree_current_user)
-        redirect_to redirect_after_redeem, flash: { success: Spree.t('gift_card_redeemed') }
+        redirect_to redirect_after_redeem, flash: { success: Spree.t(:gift_card_redeemed) }
       else
         redirect_to root_path, flash: { error: @gift_card.errors.full_messages.to_sentence }
       end
@@ -55,7 +55,7 @@ module Spree
     def load_gift_card
       @gift_card = Spree::GiftCard.where(code: params[:id]).last
       unless @gift_card
-        redirect_to root_path, flash: { error: Spree.t('gift_code_not_found') }
+        redirect_to root_path, flash: { error: Spree.t(:gift_code_not_found) }
       end
     end
 
