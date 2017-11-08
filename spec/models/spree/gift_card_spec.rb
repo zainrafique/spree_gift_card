@@ -62,12 +62,12 @@ describe Spree::GiftCard, type: :model do
   end
 
   it "expects to generate code before create" do
-    card = Spree::GiftCard.create(:email => "test@mail.com", :name => "John", :variant_id => create(:variant).id)
+    card = Spree::GiftCard.create(email: "test@mail.com", name: "John", variant_id: create(:variant).id)
     expect(card.code).not_to be_nil
   end
 
   it "expects to set current_value and original_value before create" do
-    card = Spree::GiftCard.create(:email => "test@mail.com", :name => "John", :variant_id => create(:variant).id)
+    card = Spree::GiftCard.create(email: "test@mail.com", name: "John", variant_id: create(:variant).id)
     expect(card.current_value).not_to be_nil
     expect(card.original_value).not_to be_nil
   end

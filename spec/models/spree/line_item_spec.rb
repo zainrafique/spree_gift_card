@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Spree::LineItem do
 
   subject do
-    line_item = FactoryGirl.build(:gift_card).line_item
+    line_item = FactoryBot.build(:gift_card).line_item
     allow(line_item.product).to receive(:is_gift_card?).and_return(true)
     line_item
   end

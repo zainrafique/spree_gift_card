@@ -5,6 +5,6 @@
     <%= label_tag "gift_code_#{payment_method.id}" do %>
       <%= Spree.t(:gift_code) %><abbr class="required" title="required">*</abbr>
     <% end %>
-    <%= text_field_tag "#{param_prefix}[code]", "", { id: "gift_code_#{payment_method.id}", :class => 'form-control required'} %>
+    <%= text_field_tag "#{param_prefix}[code]", "", { id: "gift_code_#{payment_method.id}", class: 'form-control required' } %>
   </p>
 </div>

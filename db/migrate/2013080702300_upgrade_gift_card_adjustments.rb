@@ -1,4 +1,4 @@
-class UpgradeGiftCardAdjustments < ActiveRecord::Migration
+class UpgradeGiftCardAdjustments < SpreeExtension::Migration[4.2]
   def up
     if ActiveRecord::Base.connection.column_exists?(:spree_adjustments, :originator_type)
 
@@ -8,7 +8,7 @@ class UpgradeGiftCardAdjustments < ActiveRecord::Migration
       end
 
       # Gift Card adjustments have their sources altered
-      Spree::Adjustment.where(:originator_type => "Spree::GiftCard").find_each do |adjustment|
+      Spree::Adjustment.where(originator_type: "Spree::GiftCard").find_each do |adjustment|
         adjustment.source = adjustment.originator
         adjustment.save
       end

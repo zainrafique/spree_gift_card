@@ -17,8 +17,8 @@ require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 require 'rspec/rails'
 
 require 'database_cleaner'
-require 'factory_girl'
-FactoryGirl.find_definitions
+require 'factory_bot'
+FactoryBot.find_definitions
 require 'ffaker'
 require 'shoulda-matchers'
 
@@ -34,9 +34,9 @@ require 'spree/testing_support/url_helpers'
 require 'rspec/active_model/mocks'
 
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include Spree::TestingSupport::UrlHelpers
-  config.extend Spree::TestingSupport::AuthorizationHelpers::Request, :type => :feature # once spree updates this can be removed
+  config.extend Spree::TestingSupport::AuthorizationHelpers::Request, type: :feature # once spree updates this can be removed
   config.color = true
   config.infer_spec_type_from_file_location!
 
