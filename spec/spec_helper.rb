@@ -32,6 +32,7 @@ require 'spree/testing_support/authorization_helpers'
 require 'spree/testing_support/capybara_ext'
 require 'spree/testing_support/url_helpers'
 require 'rspec/active_model/mocks'
+require 'capybara/poltergeist'
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
@@ -55,6 +56,8 @@ RSpec.configure do |config|
   config.after :each do
     DatabaseCleaner.clean
   end
+
+  Capybara.javascript_driver = :poltergeist
 
   Shoulda::Matchers.configure do |shoulda_config|
     shoulda_config.integrate do |with|
