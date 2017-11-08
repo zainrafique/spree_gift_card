@@ -18,7 +18,6 @@ require 'rspec/rails'
 
 require 'database_cleaner'
 require 'factory_bot'
-FactoryBot.find_definitions
 require 'ffaker'
 require 'shoulda-matchers'
 
@@ -32,6 +31,8 @@ require 'spree/testing_support/authorization_helpers'
 require 'spree/testing_support/capybara_ext'
 require 'spree/testing_support/url_helpers'
 require 'rspec/active_model/mocks'
+require 'spree_gift_card/factories'
+require 'capybara/poltergeist'
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
@@ -51,6 +52,8 @@ RSpec.configure do |config|
     end
     DatabaseCleaner.start
   end
+
+  Capybara.javascript_driver = :poltergeist
 
   config.after :each do
     DatabaseCleaner.clean

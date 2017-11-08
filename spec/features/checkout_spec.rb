@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Checkout", js: true do
 
-  let!(:country) { create(:country, name: "United States of America", states_required: true) }
+  let!(:country) { create(:country, name: "United States of America", states_required: false) }
   let!(:state) { create(:state, name: "Alabama", country: country) }
   let!(:shipping_method) { create(:shipping_method) }
   let!(:stock_location) { create(:stock_location) }
@@ -12,6 +12,7 @@ describe "Checkout", js: true do
   let!(:zone) { create(:zone) }
 
   before do
+    Spree::Config[:address_requires_state] = false
     create(:gift_card, code: "foobar", variant: create(:variant, price: 5))
   end
 

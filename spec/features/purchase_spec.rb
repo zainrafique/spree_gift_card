@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature "Purchase Gift Card", js: true do
 
-  let!(:country) { create(:country, name: "United States of America", states_required: true) }
+  let!(:country) { create(:country, name: "United States of America", states_required: false) }
   let!(:state) { create(:state, name: "Alabama", country: country) }
   let!(:shipping_method) { create(:shipping_method) }
   let!(:stock_location) { create(:stock_location) }
@@ -11,6 +11,7 @@ feature "Purchase Gift Card", js: true do
   let!(:zone) { create(:zone) }
 
   before do
+    Spree::Config[:address_requires_state]
     ## TODO seed helper for gc
     product = Spree::Product.new(available_on: Time.now, name: "Gift Card", is_gift_card: true, slug: 'gift-card', price: 0, shipping_category_id: shipping_method.shipping_categories.first.id)
     option_type = Spree::OptionType.new(name: "is-gift-card", presentation: "Value")

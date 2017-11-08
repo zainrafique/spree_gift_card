@@ -54,7 +54,7 @@ feature "Admin Gift Card Administration", js: true do
     within 'table.index' do
       expect(page).to have_content('First Last')
       find('[data-action="remove"]').click
-      page.driver.browser.switch_to.alert.accept
+      # page.driver.browser.switch_to.alert.accept
     end
     sleep 1
     expect(Spree::GiftCard.count).to eql(0)
