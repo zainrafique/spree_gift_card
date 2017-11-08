@@ -57,6 +57,8 @@ SpreeGiftCard is an extension and one stop solution to integrate gift card funct
 * The `Email` will contain details of gift card, amount, code, sender's email and note.
 * One can redeem the gift card by applying gift card code at payment step.
 
+**Here is a detailed article with screenshot http://vinsol.com/spreecommerce-gift-card**
+
 ## Testing
 
   #### Spree >= 3.1
@@ -72,7 +74,6 @@ SpreeGiftCard is an extension and one stop solution to integrate gift card funct
 
   ```
   This will run rake test_app using the dependencies configured for Spree 3.1. Similarly you can use spree-3-2 and spree-master for generating dummy applications using dependencies for Spree 3.2 and latest version of Spree
-
 
   ```shell
   appraisal spree-3-1 rspec
