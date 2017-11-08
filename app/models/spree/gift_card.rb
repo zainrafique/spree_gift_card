@@ -11,7 +11,7 @@ module Spree
     CREDIT_ACTION = 'credit'
 
     belongs_to :variant
-    belongs_to :line_item
+    belongs_to :line_item, required: false
 
     has_many :transactions, class_name: 'Spree::GiftCardTransaction'
 
@@ -32,10 +32,10 @@ module Spree
       if able_to_redeem?(user)
         redeem(user)
       elsif amount_remaining.to_f > 0.0
-        self.errors[:base] = Spree.t('errors.gift_card.unauthorized')
+        errors.add(:base, Spree.t('errors.gift_card.unauthorized'))
         false
       else
-        self.errors[:base] = Spree.t('errors.gift_card.already_redeemed')
+        errors.add(:base, Spree.t('errors.gift_card.already_redeemed'))
         false
       end
     end

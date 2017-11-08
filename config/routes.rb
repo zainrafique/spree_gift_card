@@ -1,11 +1,11 @@
 Spree::Core::Engine.routes.draw do
-  resources :gift_cards do
+  resources :gift_cards, only: [:new, :create] do
     member do
       get :redeem
     end
   end
 
-  resources :orders do
+  resources :orders, only: [] do
     patch :apply_gift_card
   end
 
