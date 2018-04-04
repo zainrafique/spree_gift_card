@@ -14,10 +14,14 @@ describe Spree::PaymentMethod::GiftCard do
     let(:gift_card) { create(:gift_card) }
 
     context 'with an invalid gift card' do
-      let(:gift_card) { nil }
+      let(:gift_card) { create(:disable_gift_card) }
       let(:auth_amount) { 10 }
 
       it 'declines an unknown gift card' do
+        is_expected.to_not be_success
+      end
+
+      it "declines a disable gift card" do
         is_expected.to_not be_success
       end
 
@@ -148,10 +152,14 @@ describe Spree::PaymentMethod::GiftCard do
     let(:gift_card) { create(:gift_card) }
 
     context 'with an invalid gift card' do
-      let(:gift_card) { nil }
+      let(:gift_card) { create(:disable_gift_card) }
       let(:auth_amount) { 10 }
 
       it 'declines an unknown gift card' do
+        is_expected.to_not be_success
+      end
+
+      it "declines a disable gift card" do
         is_expected.to_not be_success
       end
 

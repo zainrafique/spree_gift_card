@@ -17,7 +17,7 @@ module Spree
     end
 
     def authorize(amount_in_cents, gift_card, gateway_options = {})
-      if gift_card.nil?
+      if gift_card.nil? || !gift_card.enabled
         ActiveMerchant::Billing::Response.new(false, Spree.t('gift_card_payment_method.unable_to_find'), {}, {})
       else
         action = -> (gift_card) do
@@ -42,7 +42,7 @@ module Spree
     end
 
     def purchase(amount_in_cents, gift_card, gateway_options = {})
-      if gift_card.nil?
+      if gift_card.nil? || !gift_card.enabled
         ActiveMerchant::Billing::Response.new(false, Spree.t('gift_card_payment_method.unable_to_find'), {}, {})
       else
         action = -> (gift_card) do
