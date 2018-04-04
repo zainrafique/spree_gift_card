@@ -4,6 +4,14 @@ FactoryGirl.define do
     name 'Example User'
     variant
     line_item
+    enabled true
+  end
+
+  factory :disable_gift_card, class: Spree::GiftCard do
+    email 'spree@example.com'
+    name 'Example User'
+    variant
+    line_item
   end
 
   factory :gift_card_payment_method, class: Spree::PaymentMethod::GiftCard do
@@ -15,6 +23,7 @@ FactoryGirl.define do
   end
 
   factory :gift_card_payment, class: Spree::Payment, parent: :payment do
+    state "completed"
     association(:payment_method, factory: :gift_card_payment_method)
     association(:source, factory: :gift_card)
   end
