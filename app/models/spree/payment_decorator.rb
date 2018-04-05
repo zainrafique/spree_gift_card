@@ -9,7 +9,6 @@ Spree::Payment.class_eval do
     order.line_items.each do |li|
       if li.gift_card
         li.gift_card.update_column(:enabled, true)
-        debugger
         Spree::OrderMailer.gift_card_email(li.gift_card.id, order).deliver_later
       end
     end
