@@ -4,4 +4,13 @@
     <td><%= Spree.t(:gift_card) %>:</strong></td>
     <td><span id='summary-gift-card'><%= order.display_total_applied_gift_card.to_html %></span></td>
   </tr>
+  <tr>
+    <td>
+      <%= form_for order, url: update_checkout_path(order.state), html: { id: "checkout_form_#{@order.state}" }, method: :patch do |form| %>
+        <%= form.submit 'Remove Gift Card', class: 'btn btn-default' %>
+        <%= form.hidden_field :state_lock_version %>
+        <%= hidden_field_tag :remove_gift_card %>
+      <% end %>
+    </td>
+  </tr>
 <% end %>

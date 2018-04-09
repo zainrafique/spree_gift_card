@@ -1,6 +1,7 @@
 Spree::CheckoutController.class_eval do
 
   before_action :load_gift_card, :add_gift_card_payments, only: [:update], if: :payment_via_gift_card?
+  before_action :remove_gift_card_payments, only: [:update]
 
   private
 
@@ -13,6 +14,13 @@ Spree::CheckoutController.class_eval do
 
       # Return to the Payments page if additional payment is needed.
       if @order.payments.valid.sum(:amount) < @order.total
+        redirect_to checkout_state_path(@order.state) and return
+      end
+    end
+
+    def remove_gift_card_payments
+      if params.key?(:remove_gift_card) && @order.using_gift_card?
+        @order.remove_gift_card_payments
         redirect_to checkout_state_path(@order.state) and return
       end
     end
