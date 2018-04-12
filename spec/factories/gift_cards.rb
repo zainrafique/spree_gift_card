@@ -14,6 +14,14 @@ FactoryGirl.define do
     line_item
   end
 
+  factory :gift_card_with_other_email, class: Spree::GiftCard do
+    email 'spree123@example.com'
+    name 'Example User'
+    variant
+    line_item
+    enabled true
+  end
+
   factory :gift_card_payment_method, class: Spree::PaymentMethod::GiftCard do
     type "Spree::PaymentMethod::GiftCard"
     name "Gift Card"

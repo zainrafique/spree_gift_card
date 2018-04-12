@@ -14,14 +14,10 @@ describe Spree::PaymentMethod::GiftCard do
     let(:gift_card) { create(:gift_card) }
 
     context 'with an invalid gift card' do
-      let(:gift_card) { create(:disable_gift_card) }
+      let(:gift_card) { nil }
       let(:auth_amount) { 10 }
 
       it 'declines an unknown gift card' do
-        is_expected.to_not be_success
-      end
-
-      it "declines a disable gift card" do
         is_expected.to_not be_success
       end
 
@@ -30,8 +26,25 @@ describe Spree::PaymentMethod::GiftCard do
       end
     end
 
+    context "with an disable gift card" do
+      let(:gift_card) { create(:disable_gift_card) }
+
+      it "declines a disable gift card" do
+        is_expected.to_not be_success
+      end
+    end
+
+    context "when the order email is not same as gift card email" do
+      let(:gift_card) { create(:gift_card_with_other_email) }
+
+      it "declines other email's gift card" do
+        is_expected.to_not be_success
+      end
+    end
+
     context 'with insuffient funds' do
       let(:auth_amount) { (gift_card.amount_remaining * 100) + 1 }
+      before { gift_card.update_column(:email, order.email) }
 
       it 'declines a gift card' do
         is_expected.to_not be_success
@@ -43,6 +56,8 @@ describe Spree::PaymentMethod::GiftCard do
     end
 
     context 'with a valid request' do
+      before { gift_card.update_column(:email, order.email) }
+
       it 'authorizes a valid gift card' do
         is_expected.to be_success
       end
@@ -168,8 +183,25 @@ describe Spree::PaymentMethod::GiftCard do
       end
     end
 
+    context "with an disable gift card" do
+      let(:gift_card) { create(:disable_gift_card) }
+
+      it "declines a disable gift card" do
+        is_expected.to_not be_success
+      end
+    end
+
+    context "when the order email is not same as gift card email" do
+      let(:gift_card) { create(:gift_card_with_other_email) }
+
+      it "declines other email's gift card" do
+        is_expected.to_not be_success
+      end
+    end
+
     context 'with insuffient funds' do
       let(:auth_amount) { (gift_card.amount_remaining * 100) + 1 }
+      before { gift_card.update_column(:email, order.email) }
 
       it 'declines a gift card' do
         is_expected.to_not be_success
@@ -181,6 +213,8 @@ describe Spree::PaymentMethod::GiftCard do
     end
 
     context 'with a valid request' do
+      before { gift_card.update_column(:email, order.email) }
+
       it 'purchases a valid gift card purchase request' do
         is_expected.to be_success
       end
