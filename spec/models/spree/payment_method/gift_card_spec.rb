@@ -42,6 +42,14 @@ describe Spree::PaymentMethod::GiftCard do
       end
     end
 
+    context "when the order contains gift card" do
+      before { order.line_items }
+
+      it "declines gift card" do
+        is_expected.to_not be_success
+      end
+    end
+
     context 'with insuffient funds' do
       let(:auth_amount) { (gift_card.amount_remaining * 100) + 1 }
       before { gift_card.update_column(:email, order.email) }
