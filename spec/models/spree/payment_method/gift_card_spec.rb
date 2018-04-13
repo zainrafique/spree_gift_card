@@ -42,6 +42,21 @@ describe Spree::PaymentMethod::GiftCard do
       end
     end
 
+    context "when the order contains gift card" do
+      before do
+        line_item = Spree::LineItem.new(quantity: 1)
+        line_item.gift_card = gift_card
+        line_item.variant = gift_card.variant
+        line_item.price = gift_card.variant.price
+        order.line_items << line_item
+        order.save
+      end
+
+      it "declines gift card" do
+        is_expected.to_not be_success
+      end
+    end
+
     context 'with insuffient funds' do
       let(:auth_amount) { (gift_card.amount_remaining * 100) + 1 }
       before { gift_card.update_column(:email, order.email) }
@@ -195,6 +210,21 @@ describe Spree::PaymentMethod::GiftCard do
       let(:gift_card) { create(:gift_card_with_other_email) }
 
       it "declines other email's gift card" do
+        is_expected.to_not be_success
+      end
+    end
+
+    context "when the order contains gift card" do
+      before do
+        line_item = Spree::LineItem.new(quantity: 1)
+        line_item.gift_card = gift_card
+        line_item.variant = gift_card.variant
+        line_item.price = gift_card.variant.price
+        order.line_items << line_item
+        order.save
+      end
+
+      it "declines gift card" do
         is_expected.to_not be_success
       end
     end
