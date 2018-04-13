@@ -65,7 +65,7 @@ module Spree
     end
 
     def gift_card_params
-      params.require(:gift_card).permit(:email, :name, :note, :variant_id, :enabled)
+      params.require(:gift_card).permit(:email, :name, :note, :variant_id)
     end
 
     def load_master_variant
