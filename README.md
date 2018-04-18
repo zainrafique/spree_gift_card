@@ -9,6 +9,12 @@ SpreeGiftCard is an extension and one stop solution to integrate gift card funct
 
 * Recipient can then redeem the gift card by entering the unique gift card `Code` during checkout on payment step.
 
+Demo
+-----------------------------------
+Try Spree Gift Card with direct deployment on Heroku:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/vinsol-spree-contrib/spree-demo-heroku/tree/spree-gift-card)
+
 ## Installation
 
 1. Add this extension to your Gemfile with this line:
