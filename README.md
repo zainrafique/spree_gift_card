@@ -11,7 +11,7 @@ SpreeGiftCard is an extension and one stop solution to integrate gift card funct
 
 Demo
 -----------------------------------
-Try Spree Gift Card with direct deployment on Heroku:
+Try Spree Gift Card for Spree 3-4 with direct deployment on Heroku:
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/vinsol-spree-contrib/spree-demo-heroku/tree/spree-gift-card)
 
