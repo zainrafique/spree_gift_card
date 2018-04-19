@@ -15,6 +15,10 @@ Try Spree Gift Card for Spree 3-4 with direct deployment on Heroku:
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/vinsol-spree-contrib/spree-demo-heroku/tree/spree-gift-card)
 
+Try Spree Gift Card for Spree 3-1 with direct deployment on Heroku:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/vinsol-spree-contrib/spree-demo-heroku/tree/spree-gift-cards-3-1)
+
 ## Installation
 
 1. Add this extension to your Gemfile with this line:
