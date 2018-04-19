@@ -17,7 +17,9 @@ module Spree
     end
 
     def authorize(amount_in_cents, gift_card, gateway_options = {})
-      if gift_card.nil?
+      order = Spree::Order.find_by(number: get_order_number(gateway_options))
+      return ActiveMerchant::Billing::Response.new(false, Spree.t('gift_card_payment_method.cannot_buy_from_gift_card'), {}, {}) if order_with_gift_card?(order)
+      if gift_card.nil? || !gift_card.enabled || order.email != gift_card.email
         ActiveMerchant::Billing::Response.new(false, Spree.t('gift_card_payment_method.unable_to_find'), {}, {})
       else
         action = -> (gift_card) do
@@ -42,7 +44,9 @@ module Spree
     end
 
     def purchase(amount_in_cents, gift_card, gateway_options = {})
-      if gift_card.nil?
+      order = Spree::Order.find_by(number: get_order_number(gateway_options))
+      return ActiveMerchant::Billing::Response.new(false, Spree.t('gift_card_payment_method.cannot_buy_from_gift_card'), {}, {}) if order_with_gift_card?(order)
+      if gift_card.nil? || !gift_card.enabled || order.email != gift_card.email
         ActiveMerchant::Billing::Response.new(false, Spree.t('gift_card_payment_method.unable_to_find'), {}, {})
       else
         action = -> (gift_card) do
@@ -66,6 +70,10 @@ module Spree
     end
 
     private
+
+    def order_with_gift_card?(order)
+      order.line_items.map(&:product).any? { |p| p.is_gift_card? }
+    end
 
     def handle_action_call(gift_card, action, action_name, auth_code = nil)
       gift_card.with_lock do

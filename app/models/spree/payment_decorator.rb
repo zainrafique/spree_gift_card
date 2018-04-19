@@ -3,11 +3,14 @@ Spree::Payment.class_eval do
 
   delegate :gift_card?, to: :payment_method, allow_nil: true
 
-  state_machine.after_transition to: :completed, do: :send_gift_card
+  state_machine.after_transition to: :completed, do: :process_gift_card
 
-  def send_gift_card
+  def process_gift_card
     order.line_items.each do |li|
-      Spree::OrderMailer.gift_card_email(li.gift_card.id, order).deliver if li.gift_card
+      if li.gift_card
+        li.gift_card.update_column(:enabled, true)
+        Spree::OrderMailer.gift_card_email(li.gift_card.id, order).deliver_later
+      end
     end
   end
 
