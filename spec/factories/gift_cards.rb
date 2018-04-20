@@ -46,4 +46,11 @@ FactoryBot.define do
     amount             { 100.00 }
     authorization_code { "#{gift_card.id}-SC-20140602164814476128" }
   end
+
+  factory :gift_card_capture_transaction, class: Spree::GiftCardTransaction do
+    gift_card
+    action             { Spree::GiftCard::CAPTURE_ACTION }
+    amount             { 100.00 }
+    authorization_code { "#{gift_card.id}-SC-20140602164814476128" }
+  end
 end
