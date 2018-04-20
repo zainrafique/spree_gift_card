@@ -3,4 +3,6 @@ class Spree::GiftCardTransaction < ActiveRecord::Base
   belongs_to :order
 
   validates :amount, :gift_card, presence: true
+
+  scope :authorize, -> { where(action: 'authorize') }
 end
