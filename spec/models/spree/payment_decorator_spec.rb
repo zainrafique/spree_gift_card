@@ -24,6 +24,13 @@ describe Spree::Payment, type: :model do
     end
   end
 
+  describe "process gift card" do
+    let!(:payment) { create(:gift_card_payment) }
+    it "enables a gift card" do
+      expect(payment.source.enabled).to be(true)
+    end
+  end
+
   describe "#store_credit_or_gift_card?" do
     context "when payment using gift_card" do
       let!(:payment) { create(:gift_card_payment) }
