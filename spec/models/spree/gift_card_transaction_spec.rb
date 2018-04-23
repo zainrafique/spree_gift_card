@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Spree::GiftCardTransaction do
-  let(:gift_card_authorize_transaction) { FactoryBot.create(:gift_card_transaction) }
-  let(:gift_card_capture_transaction) { FactoryBot.create(:gift_card_capture_transaction) }
+  let(:gift_card_authorize_transaction) { FactoryGirl.create(:gift_card_transaction) }
+  let(:gift_card_capture_transaction) { FactoryGirl.create(:gift_card_capture_transaction) }
 
   it { is_expected.to belong_to(:gift_card) }
   it { is_expected.to belong_to(:order) }
