@@ -38,6 +38,7 @@ Try Spree Gift Card for Spree 3-1 with direct deployment on Heroku:
   ```ruby
   gem 'spree_gift_card', github: 'vinsol-spree-contrib/spree_gift_card', branch: 'X-X-stable'
   ```
+  **Note** Please Use 3-1-stabilise branch for Spree 3-1
 
   The `branch` option is important: it must match the version of Spree you're using.
   For example, use `3-0-stable` if you're using Spree `3-0-stable` or any `3.0.x` version.
