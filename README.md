@@ -105,6 +105,12 @@ Try Spree Gift Card for Spree 3-1 with direct deployment on Heroku:
   bundle exec rspec spec
   ```
 
+## See it in action
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=aQIK0iJm7QE
+" target="_blank"><img src="https://img.youtube.com/vi/aQIK0iJm7QE/0.jpg" 
+alt="Youtube Tutorial Video" /></a>
+
 ## Contributing
 
 1. Fork the repo.
