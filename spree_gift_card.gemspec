@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_gift_card'
-  s.version     = '3.2.0'
+  s.version     = '3.7.0'
   s.summary     = 'Spree Gift Card'
   s.description = 'Spree Gift Card Extension'
 
@@ -22,7 +22,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'spree_core',        '>= 3.2.0' , '< 4.0'
   s.add_dependency 'spree_frontend',    '>= 3.2.0' , '< 4.0'
   s.add_dependency 'spree_extension'
-
 
   s.add_development_dependency 'appraisal'
   s.add_development_dependency 'byebug'

@@ -31,32 +31,10 @@ module Spree
         Spree::Money.new(-total_applied_gift_card, currency: currency)
       end
 
-      included do
-        def order_total_after_store_credit_with_gift_card
-          order_total_after_store_credit_without_gift_card - total_applied_gift_card
-        end
-        alias_method :order_total_after_store_credit_without_gift_card, :order_total_after_store_credit
-        alias_method :order_total_after_store_credit, :order_total_after_store_credit_with_gift_card
-      end
-
-      def add_store_credit_payments
-        payments.store_credits.where(state: 'checkout').map(&:invalidate!)
-
-        remaining_total = outstanding_balance - total_applied_gift_card
-
-        if user && user.store_credits.any?
-          payment_method = Spree::PaymentMethod::StoreCredit.available.first
-          raise "Store credit payment method could not be found" unless payment_method
-
-          user.store_credits.order_by_priority.each do |credit|
-            break if remaining_total.zero?
-            next if credit.amount_remaining.zero?
-
-            amount_to_take = store_credit_amount(credit, remaining_total)
-            create_store_credit_payment(payment_method, credit, amount_to_take)
-            remaining_total -= amount_to_take
-          end
-        end
+      def order_total_after_store_credit
+        # Method overrided from Spree to customize the logic
+        # Order total - Applied store credits - Applied gift cards
+        super - total_applied_gift_card
       end
 
       def outstanding_balance_after_applied_store_credit
