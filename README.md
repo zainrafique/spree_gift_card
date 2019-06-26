@@ -30,13 +30,13 @@ Try Spree Gift Card for Spree 3-1 with direct deployment on Heroku:
   #### Spree >= 3.2
 
   ```ruby
-    gem 'spree_gift_card' , github: 'vinsol-spree-contrib/spree_gift_card'
+    gem 'spree_gift_card' , github: 'zainrafique/spree_gift_card'
   ```
 
   #### Spree < 3.2
 
   ```ruby
-  gem 'spree_gift_card', github: 'vinsol-spree-contrib/spree_gift_card', branch: 'X-X-stable'
+  gem 'spree_gift_card', github: 'zainrafique/spree_gift_card', branch: 'X-X-stable'
   ```
   **Note** Please Use 3-1-stabilise branch for Spree 3-1
 
