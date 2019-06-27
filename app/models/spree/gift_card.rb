@@ -1,4 +1,3 @@
-require 'spree/core/validators/email'
 
 module Spree
   class GiftCard < ActiveRecord::Base
