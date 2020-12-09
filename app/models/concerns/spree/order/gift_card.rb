@@ -4,7 +4,7 @@ module Spree
       extend ActiveSupport::Concern
 
       def add_gift_card_payments(gift_card)
-        payments.gift_cards.checkout.map(&:invalidate!)
+        payments.gift_cards.checkout.map(&:invalidate!) unless Spree::Config.allow_gift_card_partial_payments
 
         if gift_card.present?
           payment_method = Spree::PaymentMethod::GiftCard.available.first

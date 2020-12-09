@@ -68,6 +68,8 @@ module Spree
     end
 
     def valid_authorization?(amount)
+      return true if Spree::Config.allow_gift_card_partial_payments
+
       if amount_remaining.to_d < amount.to_d
         errors.add(:base, Spree.t('gift_card_payment_method.insufficient_funds'))
         false
